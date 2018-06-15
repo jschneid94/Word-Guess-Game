@@ -14,13 +14,22 @@ function restartGame() {
 
 
 // When user presses a key...
+document.onkeyup = function(event) {
+
     // Replace the prompt text
+    document.getElementById("startGame").style.display = "none";
+
+    // Store user's guess
+    var letterGuess = event.key;
+    console.log(letterGuess);
 
     // Compare guess with the letters in the word
         // If guess is correct
-            // Replace a blank space with the letter
+            // Reveal the letter in its respective blank space
         // If guess is incorrect
             // Number of guesses decreased by 1
+
+}
 
 // Check status of the game
     // If player guesses all the characters correctly...
