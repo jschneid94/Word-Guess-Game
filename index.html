@@ -8,12 +8,26 @@
 
     <body>
 
-        <h1>Hangman!</h1>
+        <div>
+            <h1>Hangman!</h1>
 
-        <h3 id="startGame">~Take your first guess by pressing any key~</h3>
+            <button id="newGameButton">Start New Game</button>
+        </div>
+
+        <span id="placeholders"></span>
+
+        <div>
+            <h3>Letters Already Guessed:</h3>
+            <span id="guessedLetters"></span>
+        </div>
+
+        <div>
+            <h3>Guesses Left: <span id="guessesLeft"></span></h3>
+            <h3>Wins: <span id="wins"></span></h3>
+            <h3>Losses: <span id="losses"></span></h3>
+        </div>
 
 
-
-        <script type="text/javascript" src="assets/javascript/game.js"></script>
+        <script type="text/javascript" src="main.js"></script>
     </body>
 </html>
