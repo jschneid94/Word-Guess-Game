@@ -90,7 +90,7 @@ function checkIncorrect(letter) {
         // Add incorrect letter to incorrectLetterBank
         incorrectLetterBank.push(letter);
         // Write new bank of incorrect letters guessed to DOM
-        $guessedLetters.textContent = incorrectLetterBank.join('');
+        $guessedLetters.textContent = incorrectLetterBank.join(' ');
         // Write new amount of guesses to DOM
         $guessesLeft.textContent = guessesLeft;
     }
