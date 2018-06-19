@@ -1,0 +1,18 @@
+#noose {
+    width: 100%;
+    height: auto;
+}
+
+#placeholders {
+    letter-spacing: 7px;
+    font-size: 40px;
+}
+
+#guessesLeft {
+    font-size: 30px;
+}
+
+body {
+    text-align: center;
+    background-color: #FF4400;
+}
