@@ -8,7 +8,7 @@ var $losses = document.getElementById('losses');
 
 /* Create variables for game (wordBank, wins, losses, picked word, guesses left,
 game running, picked word placeholder, guessed letter bank, incorrect letter bank)*/
-var wordBank = ["The Beatles", "Arctic Monkeys", "Radiohead"];
+var wordBank = ["The Beatles", "Arctic Monkeys", "Radiohead","Led Zeppelin", "Pink Floyd", "Oasis", "Black Sabbath","Queen", "The Rolling Stones", "The Who"];
 var wins = 0;
 var losses = 0
 var guessesLeft = 8;
@@ -17,6 +17,7 @@ var pickedWord = '';
 var pickedWordPlaceholderArr = [];
 var guessedLetterBank = [];
 var incorrectLetterBank = [];
+var gameSong;
 
 // newGame function to reset all stats, pick new word and create placeholders
 function newGame() {
