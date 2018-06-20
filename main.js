@@ -8,7 +8,7 @@ var $losses = document.getElementById('losses');
 
 /* Create variables for game (wordBank, wins, losses, picked word, guesses left,
 game running, picked word placeholder, guessed letter bank, incorrect letter bank)*/
-var wordBank = ["The Beatles", "Arctic Monkeys", "Radiohead","Led Zeppelin", "Pink Floyd", "Oasis", "Black Sabbath","Queen", "The Rolling Stones", "The Who"];
+var wordBank = ["Eleanor Rigby", "Magical Mystery Tour", "Fixing A Hole", "A Day In The Life", "Golden Slumbers", "I Want To Hold Your Hand", "For No One", "Taxman", "All You Need Is Love", "Come Together", "Hey Jude", "Ticket To Ride", "Because"];
 var wins = 0;
 var losses = 0
 var guessesLeft = 8;
