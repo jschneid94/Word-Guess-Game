@@ -12,51 +12,47 @@
     </head>
 
     <body>
-        <div class="container-fluid text-center">
+        <div class="container-fluid text-center mx-0">
 
-            <div class="row">
+            <div class="col-md-6 col-sm-12 float-left">
+                <img id="noose" class="img-fluid" src="assets/images/noose.png">
+            </div>
 
-                <div class="col-md-6 col-xs-12">
-                    <img id="noose" class="img-fluid" src="assets/images/noose.png">
+            <div class="col-md-6 col-sm-12 text-white float-right">
+
+                <div class="row">
+                    <h1 class="display-1 my-4 mx-auto">Hangman!</h1>
                 </div>
 
-                <div class="col-md-6 col-xs-12 text-white">
+                <div class="row mx-auto">
+                    <button type="button" 
+                        id="newGameButton" 
+                        class="btn btn-outline-light btn-lg mt-5 mb-4  mx-auto">
+                        Start New Game
+                    </button>
+                </div>
 
-                    <div class="row">
-                        <h1 class="display-1 my-4 mx-auto">Hangman!</h1>
+                <div class="row">
+                    <span id="placeholders" class="mx-auto my-3"></span>
+                </div>
+
+                <div class="row my-3 text-left">
+                    <div class="col-md-12 col-sm-12">
+                        <h3>Letters Already Guessed: <span id="guessedLetters"></span></h3>
+                        
                     </div>
-
-                    <div class="row mx-auto">
-                        <button type="button" 
-                            id="newGameButton" 
-                            class="btn btn-outline-light btn-lg mt-5 mb-4  mx-auto">
-                            Start New Game
-                        </button>
+                    <div class="col-md-12 col-sm-12">
+                        <h3>Guesses Left: <span id="guessesLeft"></span></h3>
                     </div>
-
-                    <div class="row">
-                        <span id="placeholders" class="mx-auto my-3"></span>
+                    <div class="col-md-12 col-sm-12">
+                        <h3>Wins: <span id="wins"></span></h3>
                     </div>
-
-                    <div class="row my-3 text-left">
-                        <div class="col-md-12">
-                            <h3>Letters Already Guessed: <span id="guessedLetters"></span></h3>
-                            
-                        </div>
-                        <div class="col-md-12">
-                            <h3>Guesses Left: <span id="guessesLeft"></span></h3>
-                        </div>
-                        <div class="col-md-12">
-                            <h3>Wins: <span id="wins"></span></h3>
-                        </div>
-                        <div class="col-md-12">
-                            <h3>Losses: <span id="losses"></span></h3>
-                        </div>
+                    <div class="col-md-12 col-sm-12">
+                        <h3>Losses: <span id="losses"></span></h3>
                     </div>
+                </div>
 
-                </div>       
-
-            </div>
+            </div>       
 
         </div>
 
