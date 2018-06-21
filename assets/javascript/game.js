@@ -1,78 +1,134 @@
-// Count number of wins and guesses remaining
+// Create variables for DOM elements
+var $newGameButton = document.getElementById("newGameButton");
+var $placeholders = document.getElementById("placeholders");
+var $guessedLetters = document.getElementById("guessedLetters");
+var $guessesLeft = document.getElementById("guessesLeft");
+var $wins = document.getElementById("wins");
+var $losses = document.getElementById("losses");
+
+// Create variables for the game
+var wordBank = ["Eleanor Rigby", "Magical Mystery Tour", "Fixing A Hole", "A Day In The Life", "Golden Slumbers", "I Want To Hold Your Hand", "For No One", "Taxman", "All You Need Is Love", "Come Together", "Hey Jude", "Ticket To Ride", "Don't Let Me Down", "Can't Buy Me Love", "I've Just Seen A Face"];
 var wins = 0;
-var remainingGuess = 15;
+var losses = 0;
+var gameRunning = false;
+var guessesLeft = 8;
+var pickedWord = "";
+var guessedLetterBank = [];
+var incorrectLetterBank = [];
+var pickedWordPlaceholderArr = [];
 
-// Create a word bank of words used in game
-var wordListArr = ["Firefly", "Lost", "Westworld", "Heroes"];
-var randomWord = wordListArr[Math.floor(Math.random() * wordListArr.length)];
+// newGame function
+function newGame() {
+    // Reset all stats for a new game
+    gameRunning = true;
+    guessesLeft = 8;
+    guessedLetterBank = [];
+    incorrectLetterBank = [];
+    pickedWordPlaceholderArr = [];
 
-// Computer chooses word and displays the length with _'s
+    // Randomly choose a word from the word bank
+    pickedWord = wordBank[Math.floor(Math.random * wordBank.length)];
 
-var secretWord;
-var count = 0;
-var answerArr = [];
-
-function chooseWord() {
-    for (var i = 0; i < randomWord.length; i++) {
-        answerArr[i] = "_";
-    }
-
-    secretWord = answerArr.join(" ");
-    document.getElementById("hiddenWord").innerHTML = secretWord;
-}
-
-// Function to restart the game
-function restartGame() {
-    wins = 0;
-    remainingGuess = 15;
-}
-
-chooseWord();
-
-// When user presses a key...
-document.onkeyup = function(event) {
-
-    // Replace the prompt text
-    document.getElementById("startGame").style.display = "none";
-
-    // Store user's guess
-    var letterGuess = event.key;
-    console.log(letterGuess);
-
-    // Compare guess with the letters in the word
-        // If guess is correct
-        if (letterGuess === randomWord[i]) {
-            // Reveal the letter in its respective blank space
-            answerArr[i] = letterGuess;
-        } 
-         // If guess is incorrect
-        else {
-            // Number of guesses decreased by 1
-            remainingGuess--;
+    // create a placeholder for the chosen word
+    for (var i = 0; i < pickedWord.length; i++) {
+        if (pickedWord[i] === " ") {
+            pickedWordPlaceholderArr.push(" ");
+        } else if (pickedWord[i] === "'") {
+            pickedWordPlaceholderArr.push("'");
+        } else {
+            pickedWordPlaceholderArr.push("_");
         }
-       
+    }
+
+    // Display these changes to the DOM
+    $placeholders.textContent = pickedWordPlaceholderArr.join("");
+    $guessedLetters.textContent = incorrectLetterBank;
+    $guessesLeft.textContent = guessesLeft;
+
 }
 
-// Check status of the game
-    // If player guesses all the characters correctly...
-    if ( ) { 
-        // Win count increases by 1
-        wins++;
-        // Computer chooses new word and displays word length
-        chooseWord();
-        // Number of guesses is reset
-        restartGame();
-    } 
-    // If number of guesses reaches 0...
-    else if (remainingGuess === 0) {
-        // Replace prompt text with 'try again' message
-        document.getElementById("startGame").style.display = "initial";
-        document.getElementById("startGame").innerHTML = "No more guesses. Try again!"
-        // Computer chooses new word and displays word length
-        chooseWord();
-        // Number of guesses is reset
-        restartGame();
-    }
-// Display number of guesses remaining
+// letterGuess function: takes in the letter you pressed and sees if it's in the selected word
+function letterGuess(letter) {
 
-// Display letters already guessed
+    // Check if the game is running and if the letter has already been guessed.
+    if (gameRunning === true && guessedLetterBank.indexOf(letter) === -1) {
+        // Push letter into the letter guessed bank
+        guessedLetterBank.push(letter);
+
+        // Check each letter in the placeholder
+        for (var i = 0; i < pickedWord.length; i++) {
+            // If the letter guessed matches a letter in the chosen word, display the letter in the placeholder
+            if (pickedWord[i].toLowerCase() === letter.toLowerCase()) {
+                pickedWordPlaceholderArr[i] = pickedWord[i];
+            }
+        }
+        // Update the text content of the placeholders in the DOM
+        $placeholders.textContent = pickedWordPlaceholderArr.join("");
+
+        // Run the checkIncorrect function on the letter
+        checkIncorrect(letter);
+    }
+    // If game is not running or letter has already been pressed, alert
+    else {
+        if (!gameRunning) {
+            alert("You need to start a new game!");
+        } else {
+            alert("You already guessed that letter, try another one!");
+        }
+    }
+}
+
+// checkIncorrect function: if guessed letter is not in the placeholder, decrease amount of guesses and display incorrect guesses
+function checkIncorrect(letter) {
+    // If the guessed letter does not match any lower or upper case letters
+    if (pickedWordPlaceholderArr.indexOf(letter.toLowerCase()) === -1 
+        && 
+        pickedWordPlaceholderArr.indexOf(letter.toUpperCase()) === -1) {
+            // Decrement guesses left by 1 and display on DOM
+            guessesLeft--;
+            $guessesLeft.textContent = guessesLeft;
+            // Add the guessed letter to the incorrect letter bank and dispaly on DOM
+            incorrectLetterBank.push(letter);
+            $guessedLetters.textContent = incorrectLetterBank.join(" ");
+    }
+
+    // Run checkLoss function
+    checkLoss();
+}
+
+// checkLoss function: checks if the user has any guesses left
+function checkLoss() {
+    if (guessesLeft === 0) {
+        // Increment losses and display on screen
+        losses++;
+        $losses.textContent = losses;
+        // Game stops running
+        gameRunning = false;
+        alert("You lost, try again!");
+    }
+
+    // Run checkWin function
+    checkWin();
+}
+
+// checkWin function: checks if the user has guessed all letters in the placeholder
+function checkWin () {
+    if (pickedWord.toLowerCase() === pickedWordPlaceholderArr.join("").toLowerCase()) {
+        // Increment wins and display on screen
+        wins++;
+        $wins.textContent = wins;
+        // Game stops running
+        gameRunning = false;
+        alert("You win!");
+    }
+}
+
+// Create event listener for when new game button is pressed
+$newGameButton.addEventListener("click", newGame);
+
+// When any letter key is pressed, run letterGuess function
+document.onkeyup = function(event) {
+    if (event.keyCode >= 65 && event.keyCode <= 90) {
+        letterGuess(event.key);
+    }
+}
