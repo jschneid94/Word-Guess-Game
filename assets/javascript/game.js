@@ -27,7 +27,7 @@ function newGame() {
     pickedWordPlaceholderArr = [];
 
     // Randomly choose a word from the word bank
-    pickedWord = wordBank[Math.floor(Math.random * wordBank.length)];
+    pickedWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 
     // create a placeholder for the chosen word
     for (var i = 0; i < pickedWord.length; i++) {
@@ -52,6 +52,7 @@ function letterGuess(letter) {
 
     // Check if the game is running and if the letter has already been guessed.
     if (gameRunning === true && guessedLetterBank.indexOf(letter) === -1) {
+        
         // Push letter into the letter guessed bank
         guessedLetterBank.push(letter);
 
