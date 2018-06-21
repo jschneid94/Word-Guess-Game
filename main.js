@@ -1,4 +1,4 @@
-// Grab reference to my DOM elements
+// Create variables to reference DOM elements
 var $newgameButton = document.getElementById('newGameButton');
 var $placeholders = document.getElementById('placeholders');
 var $guessedLetters = document.getElementById('guessedLetters');
@@ -19,7 +19,7 @@ var guessedLetterBank = [];
 var incorrectLetterBank = [];
 var gameSong;
 
-// newGame function to reset all stats, pick new word and create placeholders
+// newGame function to reset all stats, randomly pick word from word bank, and create string with placeholders
 function newGame() {
     // Reset all game info
     gameRunning = true;
@@ -27,9 +27,7 @@ function newGame() {
     guessedLetterBank = [];
     incorrectLetterBank = [];
     pickedWordPlaceholderArr = [];
-
-    // Pick a new word
-    pickedWord = wordBank[Math.floor(Math.random() * wordBank.length)]
+    pickedWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 
     // Create placeholders out of new pickedWord
     for (var i = 0; i < pickedWord.length; i++) {
@@ -49,17 +47,17 @@ function newGame() {
     $guessedLetters.textContent = incorrectLetterBank;
 }
 
-// letterGuess function, takes in the letter you pressed and sees if it's in the selected word
+// letterGuess function: takes in the letter you pressed and sees if it's in the selected word
 function letterGuess(letter) {
     console.log(letter);
 
+    // Test if the new game has been started and if the letter has not been chosen already
     if (gameRunning === true && guessedLetterBank.indexOf(letter) === -1) {
-        // Run Game Logic
 
         // Put letter in the guessed word bank
         guessedLetterBank.push(letter);
 
-        // Check if guessed letter is in my picked word.
+        // for loop to check every character in the placeholder
         for (var i = 0; i < pickedWord.length; i++) {
             // Convert both values to lower case so I can compare them correctly
             if (pickedWord[i].toLowerCase() === letter.toLowerCase()) {
@@ -68,11 +66,13 @@ function letterGuess(letter) {
             }
         }
 
+        // Replace the textContent of the placeholder in DOM
         $placeholders.textContent = pickedWordPlaceholderArr.join('');
         // Pass letter into our checkIncorrect function
         checkIncorrect(letter);
 
     }
+    // If new game has not been started, alert error message.
     else {
         if (!gameRunning) {
             alert("The game isn't running, click on the New Game button to start over.")
@@ -84,23 +84,24 @@ function letterGuess(letter) {
 
 // checkIncorrect(letter)
 function checkIncorrect(letter) {
-    // Check to see if the letter didn't make it into our pickedWordPlaceholder
+    // Check to see if the letter didn't make it into our pickedWordPlaceholder array
     if (pickedWordPlaceholderArr.indexOf(letter.toLowerCase()) === -1 
-    &&
-    pickedWordPlaceholderArr.indexOf(letter.toUpperCase()) === -1) {
-        // Decrement guesses
-        guessesLeft--;
-        // Add incorrect letter to incorrectLetterBank
-        incorrectLetterBank.push(letter);
-        // Write new bank of incorrect letters guessed to DOM
-        $guessedLetters.textContent = incorrectLetterBank.join(' ');
-        // Write new amount of guesses to DOM
-        $guessesLeft.textContent = guessesLeft;
+        &&
+        pickedWordPlaceholderArr.indexOf(letter.toUpperCase()) === -1) {
+            // Decrement guesses
+            guessesLeft--;
+            // Add incorrect letter to incorrectLetterBank
+            incorrectLetterBank.push(letter);
+            // Write new bank of incorrect letters guessed to DOM
+            $guessedLetters.textContent = incorrectLetterBank.join(' ');
+            // Write new amount of guesses to DOM
+            $guessesLeft.textContent = guessesLeft;
     }
+    // Pass into checkLoss function
     checkLoss();
 }
 
-// checkLose
+// checkLoss
 function checkLoss() {
     if (guessesLeft === 0) {
         losses++;
